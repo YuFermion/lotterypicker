@@ -5,39 +5,38 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>SuperLotto Pro | 大乐透智能分析系统</title>
     
-    <!-- Storage Shim: Prevents "Access to storage is not allowed" errors from Tailwind CDN in restricted environments -->
-    <script>
-      (function() {
-        try {
-          // Try to access storage to see if it throws
-          var x = '__storage_test__';
-          localStorage.setItem(x, x);
-          localStorage.removeItem(x);
-        } catch (e) {
-          console.warn('Storage access is blocked. Shimming localStorage/sessionStorage to prevent application crash.');
-          
-          var noop = function() {};
-          var storageShim = {
-            getItem: function() { return null; },
-            setItem: noop,
-            removeItem: noop,
-            clear: noop,
-            key: function() { return null; },
-            length: 0
-          };
-
-          try {
-            // Attempt to override the global properties
-            Object.defineProperty(window, 'localStorage', { value: storageShim, configurable: true, writable: true });
-            Object.defineProperty(window, 'sessionStorage', { value: storageShim, configurable: true, writable: true });
-          } catch (err) {
-            console.warn('Failed to shim storage:', err);
-          }
-        }
-      })();
-    </script>
-
-    <script src="https://cdn.tailwindcss.com"></script>
+ <script>
+  // 强力防白屏补丁
+  (function() {
+    try {
+      // 如果没有 localStorage，就创建一个假的，防止代码读取时崩溃
+      if (!window.localStorage) {
+        throw new Error("No Storage");
+      }
+      // 尝试一次读写
+      var t = "test_storage";
+      window.localStorage.setItem(t, t);
+      window.localStorage.removeItem(t);
+    } catch (e) {
+      console.warn("Storage blocked, using Shim to prevent crash.");
+      // 创建一个假的 Storage 对象
+      var fakeStorage = {
+        getItem: function() { return null; },
+        setItem: function() {},
+        removeItem: function() {},
+        clear: function() {},
+        key: function() { return null; },
+        length: 0
+      };
+      // 强行覆盖 window 上的属性
+      try {
+        Object.defineProperty(window, 'localStorage', { value: fakeStorage });
+        Object.defineProperty(window, 'sessionStorage', { value: fakeStorage });
+      } catch (e2) {}
+    }
+  })();
+</script>
+   
     <script>
       tailwind.config = {
         theme: {
