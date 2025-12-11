@@ -4,6 +4,39 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>SuperLotto Pro | 大乐透智能分析系统</title>
+    
+    <!-- Storage Shim: Prevents "Access to storage is not allowed" errors from Tailwind CDN in restricted environments -->
+    <script>
+      (function() {
+        try {
+          // Try to access storage to see if it throws
+          var x = '__storage_test__';
+          localStorage.setItem(x, x);
+          localStorage.removeItem(x);
+        } catch (e) {
+          console.warn('Storage access is blocked. Shimming localStorage/sessionStorage to prevent application crash.');
+          
+          var noop = function() {};
+          var storageShim = {
+            getItem: function() { return null; },
+            setItem: noop,
+            removeItem: noop,
+            clear: noop,
+            key: function() { return null; },
+            length: 0
+          };
+
+          try {
+            // Attempt to override the global properties
+            Object.defineProperty(window, 'localStorage', { value: storageShim, configurable: true, writable: true });
+            Object.defineProperty(window, 'sessionStorage', { value: storageShim, configurable: true, writable: true });
+          } catch (err) {
+            console.warn('Failed to shim storage:', err);
+          }
+        }
+      })();
+    </script>
+
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
       tailwind.config = {
@@ -46,12 +79,12 @@
   <script type="importmap">
 {
   "imports": {
-    "recharts": "https://esm.sh/recharts@^3.5.1",
-    "tailwind-merge": "https://esm.sh/tailwind-merge@^3.4.0",
-    "lucide-react": "https://esm.sh/lucide-react@^0.560.0",
-    "react/": "https://esm.sh/react@^19.2.1/",
-    "react": "https://esm.sh/react@^19.2.1",
-    "react-dom/": "https://esm.sh/react-dom@^19.2.1/",
+    "recharts": "https://esm.sh/recharts@^2.12.7",
+    "tailwind-merge": "https://esm.sh/tailwind-merge@^2.3.0",
+    "lucide-react": "https://esm.sh/lucide-react@^0.378.0",
+    "react/": "https://esm.sh/react@^18.3.1/",
+    "react": "https://esm.sh/react@^18.3.1",
+    "react-dom/": "https://esm.sh/react-dom@^18.3.1/",
     "clsx": "https://esm.sh/clsx@^2.1.1"
   }
 }
