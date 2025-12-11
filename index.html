@@ -4,39 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>SuperLotto Pro | 大乐透智能分析系统</title>
-    
- <script>
-  // 强力防白屏补丁
-  (function() {
-    try {
-      // 如果没有 localStorage，就创建一个假的，防止代码读取时崩溃
-      if (!window.localStorage) {
-        throw new Error("No Storage");
-      }
-      // 尝试一次读写
-      var t = "test_storage";
-      window.localStorage.setItem(t, t);
-      window.localStorage.removeItem(t);
-    } catch (e) {
-      console.warn("Storage blocked, using Shim to prevent crash.");
-      // 创建一个假的 Storage 对象
-      var fakeStorage = {
-        getItem: function() { return null; },
-        setItem: function() {},
-        removeItem: function() {},
-        clear: function() {},
-        key: function() { return null; },
-        length: 0
-      };
-      // 强行覆盖 window 上的属性
-      try {
-        Object.defineProperty(window, 'localStorage', { value: fakeStorage });
-        Object.defineProperty(window, 'sessionStorage', { value: fakeStorage });
-      } catch (e2) {}
-    }
-  })();
-</script>
-   
+    <script src="https://cdn.tailwindcss.com"></script>
     <script>
       tailwind.config = {
         theme: {
@@ -78,14 +46,13 @@
   <script type="importmap">
 {
   "imports": {
-    "react": "https://esm.sh/react@18.3.1",
-    "react/": "https://esm.sh/react@18.3.1/",
-    "react-dom": "https://esm.sh/react-dom@18.3.1",
-    "react-dom/": "https://esm.sh/react-dom@18.3.1/",
-    "recharts": "https://esm.sh/recharts@2.12.7?external=react,react-dom",
-    "tailwind-merge": "https://esm.sh/tailwind-merge@2.3.0",
-    "lucide-react": "https://esm.sh/lucide-react@0.378.0?external=react,react-dom",
-    "clsx": "https://esm.sh/clsx@2.1.1"
+    "recharts": "https://esm.sh/recharts@^3.5.1",
+    "tailwind-merge": "https://esm.sh/tailwind-merge@^3.4.0",
+    "lucide-react": "https://esm.sh/lucide-react@^0.560.0",
+    "react/": "https://esm.sh/react@^19.2.1/",
+    "react": "https://esm.sh/react@^19.2.1",
+    "react-dom/": "https://esm.sh/react-dom@^19.2.1/",
+    "clsx": "https://esm.sh/clsx@^2.1.1"
   }
 }
 </script>
